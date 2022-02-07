@@ -3,6 +3,6 @@ import carsController from "../controllers/carsController";
 
 const router:Router = Router()
 
-router.get('/cars', carsController.getCars);
+router.get('/', carsController.getCars);
 
 export default router;

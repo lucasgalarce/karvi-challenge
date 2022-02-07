@@ -13,9 +13,9 @@ app.use(express.urlencoded({ extended: false }));
 
 // Routes
 app.use(IndexRoutes)
-app.use('/api', CarsRoutes);
+app.use('/api/cars', CarsRoutes);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {
     console.log('Server on port: ' + PORT);
