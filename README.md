@@ -27,6 +27,7 @@ Install NPM packages
 
 ```
 npm install
+npm build
 npm start
 ```
 
