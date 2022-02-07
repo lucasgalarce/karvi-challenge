@@ -7,7 +7,7 @@
     "ts:node": "ts-node src/index.ts",
     "clean": "del build",
     "build": "tsc",
-    "start": "node build/src/index.js",
+    "start": "node build/index.js",
     "dev": "nodemon"
   },
   "repository": {
