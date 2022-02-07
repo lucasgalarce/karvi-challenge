@@ -35,7 +35,7 @@ const CarsController = {
                 image: string,
                 certificate: boolean,
                 promoted: boolean
-            }
+            };
             
             const sortCars = () => {
 
@@ -82,21 +82,10 @@ const CarsController = {
 
             for(let car of cars){
 
-                if(!city.includes(car.city)) {
-                    city.push(car.city)
-                }
-
-                if(!state.includes(car.state)) {
-                    state.push(car.state)
-                }
-
-                if(!brand.includes(car.brand)) {
-                    brand.push(car.brand)
-                }
-
-                if(!model.includes(car.model)) {
-                    model.push(car.model)
-                }
+                if(!city.includes(car.city)) city.push(car.city);
+                if(!state.includes(car.state)) state.push(car.state);
+                if(!brand.includes(car.brand)) brand.push(car.brand);
+                if(!model.includes(car.model)) model.push(car.model);
             }
 
             const filter:Filter = {
@@ -104,15 +93,64 @@ const CarsController = {
                 state,
                 brand,
                 model
-            }
+            };
 
             res.status(200).json({
                 items: cars,
                 filters: filter,
-            })
+            });
 
         } catch(e) {
+            console.log(e);
+            return res.status(400).json({msg: 'Unexpected error'});
+        }
+    },
+
+    async getCarsById (req: Request, res: Response) {
+
+        try {
+            const { site, ids } = req.query;
+
+            if(site === undefined) return res.status(400).json({msg: 'Site is required'});
+            if(ids === undefined) return res.status(400).json({msg: 'Ids is required'});
+            
+            const url: string = `https://used-cars-api.development.karvi.com.ar/cars/challenge?site=${site}`;
+
+            const axiosConfig = {
+                headers: {
+                    'api-key': config.API_KEY!,
+                }
+            }
+
+            const response = await axios.get(url, axiosConfig);
+            
+            type Car = {
+                id: number,
+                city: string,
+                state: string,
+                year: string,
+                brand: string,
+                model: string,
+                version: string,
+                price: number
+                mileage: number
+                image: string,
+                certificate: boolean,
+                promoted: boolean
+            };
+
+            const carsId = String(ids).split(',');
+
+            const cars: Car[] = response.data.filter( (car:Car) => {
+                return carsId.includes(String(car.id))
+            })
+
+            res.status(200).json({
+                data: cars
+            });
+        } catch(e) {
             console.log(e)
+            return res.status(400).json({msg: 'Unexpected error'});
         }
     }
 }
