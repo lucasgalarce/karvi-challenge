@@ -32,7 +32,7 @@ npm start
 ```
 
 ## Deploy 📦
-This page is being deployed in [Heroku](https://karvi-challenge.herokuapp.com/api/cars?site=br)
+This page is being deployed in [AWS](https://karvi-challenge.herokuapp.com/api/cars?site=br)
 
 ## Builded with 🛠️
 * Node.js - A JavaScript runtime built on Chrome's V8 JavaScript engine.
